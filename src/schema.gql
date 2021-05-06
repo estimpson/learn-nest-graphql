@@ -1,0 +1,68 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Author {
+  firstname: String
+  id: Int!
+  lastName: String
+  posts: [Post!]!
+}
+
+input CreateAuthorInput {
+  firstname: String
+  lastName: String
+}
+
+input CreateRecipeInput {
+  description: String
+  ingredient: [String!]!
+  title: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Mutation {
+  addRecipe(newRecipeData: CreateRecipeInput!): Recipe!
+  createAuthor(createAuthorInput: CreateAuthorInput!): Author!
+  removeAuthor(id: Int!): Author!
+  removeRecipe(id: String!): Boolean!
+  updateAuthor(updateAuthorInput: UpdateAuthorInput!): Author!
+  upvotePost(postId: Int!): Post!
+}
+
+type Post {
+  id: Int!
+  title: String!
+  votes: Int
+}
+
+type Query {
+  """Pass an id, get back an author"""
+  author(
+    """The author's id"""
+    id: Int!
+  ): Author!
+  authors: [Author!]!
+  recipe(id: String!): Recipe!
+  recipes(skip: Int = 0, take: Int = 25): [Recipe!]!
+}
+
+type Recipe {
+  creationDate: Date!
+  description: String
+  id: ID!
+  ingredients: [String!]!
+  title: String!
+}
+
+type Subscription {
+  recipeAdded: Recipe!
+}
+
+input UpdateAuthorInput {
+  firstname: String
+  id: Int!
+  lastName: String
+}
